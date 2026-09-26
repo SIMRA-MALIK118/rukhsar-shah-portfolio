@@ -29,10 +29,6 @@
     overflow-x: hidden;
     position: relative;
   }
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1000; opacity: 0.035; mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
   .progress-bar {
     position: fixed; top: 0; left: 0; height: 3px; background: var(--rust); z-index: 50; width: 0%;
     transition: width 0.1s linear;
@@ -475,6 +471,11 @@
   }
   showWord();
   setInterval(showWord, 2600);
+
+  // Safety net: guarantee hero text is visible no matter what
+  document.querySelectorAll('.hero .eyebrow, .hero h1, .hero p.sub, .hero .btn-row').forEach(el => {
+    el.style.opacity = '1';
+  });
 
   // Scroll reveal
   const revealEls = document.querySelectorAll('[data-reveal]');
